@@ -1,0 +1,48 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class Application {
+    + {static} main(args : String[]) : void
+}
+
+package data {
+
+    class Group {
+        + Group(exp : String, dests : List<String>)
+    }
+
+    class Mail {
+        + Mail(group : Group, prank : Prank)
+    }
+
+    class Parser {
+        + generateGroups(n : int) : List<Group>
+    }
+
+    class Prank {
+        + Prank(subject : String, body : String)
+    }
+
+    Mail -- Group
+    Prank -- Mail
+}
+
+package SMTP {
+
+    class SMTPClient {
+        + sendMail(mail : Mail) : void
+    }
+
+    class SMTPProtocol {
+        + <i>{static} EHLO_COMMAND : String</i>
+    }
+
+    SMTPClient -- SMTPProtocol
+    Mail - SMTPClient
+}
+
+Application - SMTPClient
+Application - Parser
+
+@end
