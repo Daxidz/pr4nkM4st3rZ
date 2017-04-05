@@ -1,6 +1,6 @@
 # pr4nkM4st3rZ
 
-**pr4nkM4st3rZ** is a project made for HEIG-VD by Lucas ELISEI (@faku99) and David TRUAN (@Daxidz).
+**pr4nkM4st3rZ** is a project made for HEIG-VD by Lucas ELISEI ([@faku99](https://github.com/faku99)) and David TRUAN ([@Daxidz](https://github.com/Daxidz)).
 
 It's a simple Java application used for sending forged emails to groups of persons. The user can define a list of victims in a file and several messages to send.
 
