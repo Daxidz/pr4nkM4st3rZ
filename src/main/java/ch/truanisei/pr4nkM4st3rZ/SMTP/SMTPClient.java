@@ -35,55 +35,58 @@ public class SMTPClient {
      * @param mail
      * @throws IOException
      */
-    public void sendMail(Mail mail) throws IOException {
+    public void sendMail(Mail mail) {
 
-        ArrayList<String> recipients = mail.get_recipients();
+        ArrayList<String> recipients = mail.getRecipients();
 
         connect();
-        // Read the first line
-        in.readLine();
-
-        sendCommand(SMTPProtocol.EHLO + "truanisei");
-
-        // read until we get to the line "250 ...."
-        String input = in.readLine();
-        while (!input.contains(" ")) {
-            System.out.println(input);
-            input = in.readLine();
-        }
-        sendCommand(SMTPProtocol.MAIL_FROM + mail.get_sender());
-        in.readLine();
-        for (String receipient : recipients) {
-            sendCommand(SMTPProtocol.RCPT_TO + receipient);
+        try {
+            // Read the first line
             in.readLine();
-        }
 
-        sendCommand(SMTPProtocol.DATA);
-        in.readLine();
-        out.write(SMTPProtocol.FROM + mail.get_sender() + SMTPProtocol.LINE_ENDING);
+            sendCommand(SMTPProtocol.EHLO + "truanisei");
 
-        out.write(SMTPProtocol.TO);
-        for (int i = 0; i < recipients.size(); ++i) {
-            out.write(recipients.get(i));
-            if (i != recipients.size() - 1) {
-                out.write(", ");
+            // read until we get to the line "250 ...."
+            String input = in.readLine();
+            while (!input.contains(" ")) {
+                System.out.println(input);
+                input = in.readLine();
             }
+            sendCommand(SMTPProtocol.MAIL_FROM + mail.getSender());
+            in.readLine();
+            for (String receipient : recipients) {
+                sendCommand(SMTPProtocol.RCPT_TO + receipient);
+                in.readLine();
+            }
+
+            sendCommand(SMTPProtocol.DATA);
+            in.readLine();
+            out.write(SMTPProtocol.FROM + mail.getSender() + SMTPProtocol.LINE_ENDING);
+
+            out.write(SMTPProtocol.TO);
+            for (int i = 0; i < recipients.size(); ++i) {
+                out.write(recipients.get(i));
+                if (i != recipients.size() - 1) {
+                    out.write(", ");
+                }
+                out.flush();
+            }
+            out.write(SMTPProtocol.LINE_ENDING);
+            out.write(SMTPProtocol.SUBJECT + mail.getSubject() + SMTPProtocol.LINE_ENDING + SMTPProtocol.LINE_ENDING);
+
+            out.write(mail.getBody() + SMTPProtocol.END_DATA);
             out.flush();
+
+            in.readLine();
+            sendCommand(SMTPProtocol.QUIT);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        out.write(SMTPProtocol.LINE_ENDING);
-        out.write(SMTPProtocol.SUBJECT + mail.get_subject() + SMTPProtocol.LINE_ENDING + SMTPProtocol.LINE_ENDING);
 
-        out.write(mail.get_body() + SMTPProtocol.END_DATA);
-        out.flush();
-
-        in.readLine();
-        sendCommand(SMTPProtocol.QUIT);
-
-        in.close();
-        out.close();
+        disconnect();
     }
 
-    public void connect() {
+    private void connect() {
 
         try {
             serverSocket = new Socket(InetAddress.getByName(serverName), port);
@@ -96,6 +99,16 @@ public class SMTPClient {
         try {
             in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
             out = new PrintWriter(new OutputStreamWriter(serverSocket.getOutputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void disconnect() {
+        try {
+            serverSocket.close();
+            in.close();
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
