@@ -88,7 +88,7 @@ Example:
 
 ![Classes diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/faku99/pr4nkM4st3rZ/master/figures/classes.plantuml)  
 
-## <a name="STMP"></a>Using a mock SMTP server
+## <a name="SMTP"></a>Using a mock SMTP server
 
 If you want to try **pr4nkM4st3rZ** without getting kicked out of your company or just to see if you set the properties right, you can use a **mock SMTP server**. Its goal is to simulate a SMTP server for tests purpose.  
 [Here](https://github.com/tweakers-dev/MockMock) is the one we used to test our application while developping it. It is a simple one with a network interface available by your browser.
