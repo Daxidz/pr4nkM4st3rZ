@@ -35,7 +35,7 @@ The compiled `.jar` file is now available at the location `target/pr4nkM4st3rZ-1
 
 ### <a name="Other-Installation"></a>Maven-free installation
 
-Simply download the latest available **pr4nkM4st3rZ** release by clicking on [this link](https://github.com/faku99/pr4nkM4st3rZ/releases/latest/pr4nkM4st3rZ_v1.0.zip). It will download a `.zip` file. Extract and follow the [Running](#Running) instructions.
+Simply download the latest available **pr4nkM4st3rZ** release by going on [this link](https://github.com/faku99/pr4nkM4st3rZ/releases/latest/) and clicking on the `pr4nkM4st3rZ_v1.0.zip`. It will download a `.zip` file. Extract and follow the [Running](#Running) instructions.
 
 ## <a name="Running"></a>Running the program
 
