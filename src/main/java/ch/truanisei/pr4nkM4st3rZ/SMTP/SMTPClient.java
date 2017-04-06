@@ -5,7 +5,6 @@ import ch.truanisei.pr4nkM4st3rZ.data.Email;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
