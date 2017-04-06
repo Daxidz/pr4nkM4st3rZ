@@ -1,9 +1,10 @@
 package ch.truanisei.pr4nkM4st3rZ.SMTP;
 
 /**
- * Class which describe the basic SMTP protocol used in the app
- * @author Elisei Lucas
- * @author Truan David
+ * Class which describe the basic SMTP protocol used in the application.
+ *
+ * @author Lucas ELISEI (@faku99)
+ * @author David TRUAN  (@Daxidz)
  */
 public class SMTPProtocol {
 

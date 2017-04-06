@@ -8,24 +8,25 @@ import ch.truanisei.pr4nkM4st3rZ.data.Parser;
 import java.util.ArrayList;
 
 /**
- * This class is used to generate a list of mails using the config.properties file datas
+ * Used to generate a list of prank emails.
  *
- * @author Elisei Lucas
- * @author Truan David
+ * @author Lucas ELISEI (@faku99)
+ * @author David TRUAN  (@Daxidz)
  */
 public class PrankGenerator {
 
     private final static int NB_VICTIMS_MIN = 3;
 
     private ArrayList<String> victims;
+
     private ArrayList<Message> pranks;
 
     private int nbGroups;
 
     /**
-     * Class used to generate a list of pranks emails. It takes the number of groups wanted as an arguments
-     * and generate the list using the config.properties
-     * @param nbGroups
+     * Prank generator constructor.
+     *
+     * @param nbGroups Number of groups to generate.
      */
     public PrankGenerator(int nbGroups) {
         this.nbGroups = nbGroups;
@@ -35,31 +36,29 @@ public class PrankGenerator {
     }
 
     /**
-     * Generate the list of prank emails
-     * @return the list of prank Email
+     * Returns a list of generated prank emails.
+     *
+     * @return A list of generated prank emails.
      */
-    public ArrayList<Email> generatePrankMails() {
+    public ArrayList<Email> generatePrankEmails() {
 
-        // Tests if there are enough victims and if we can generate the number of groups wanted
+        // If there aren't enough victims, we notify the user and exit the program.
         if (victims.size() < NB_VICTIMS_MIN) {
-            System.out.println("Too few victims! Cannot generate a group.");
-            return null;
+            throw new IllegalArgumentException("Not enough victims! Cannot generate a group...");
         }
 
         if (victims.size() / nbGroups < NB_VICTIMS_MIN) {
-            System.out.println("Too few victims for the number of groups wanted.");
+            System.out.print("[WARNING] Too few victims for the number of groups wanted... ");
             nbGroups = victims.size() / NB_VICTIMS_MIN;
             System.out.println("New number of groups: " + nbGroups);
         }
 
-        ArrayList<Group> groups = new ArrayList<Group>();
-        for (int i = 0; i < nbGroups; ++i) {
+        ArrayList<Group> groups = new ArrayList<>(nbGroups);
+        for(int i = 0; i < nbGroups; ++i) {
             groups.add(new Group());
         }
 
         int random;
-
-        // Add a random sender for each group
         for (Group group : groups) {
             random = (int) (Math.random() * victims.size());
             group.setSender(victims.get(random));
@@ -74,7 +73,7 @@ public class PrankGenerator {
             victims.remove(random);
         }
 
-        ArrayList<Email> prankEmails = new ArrayList<Email>();
+        ArrayList<Email> prankEmails = new ArrayList<>();
 
         // Create a mail with a random prank for each group
         for (Group group : groups) {

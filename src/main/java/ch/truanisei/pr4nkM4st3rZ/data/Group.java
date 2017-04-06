@@ -3,18 +3,23 @@ package ch.truanisei.pr4nkM4st3rZ.data;
 import java.util.ArrayList;
 
 /**
- * Class representing a
- * @author Elisei Lucas
- * @author Truan David
+ * Represents a group for the forged emails.
+ *
+ * Each group is defined by a sender and a list of recipients.
+ *
+ * @author Lucas ELISEI (@faku99)
+ * @author David TRUAN  (@Daxidz)
  */
 public class Group {
 
-    private ArrayList<String> recipients = new ArrayList<String>();
+    private ArrayList<String> recipients = new ArrayList<>();
+
     private String sender;
 
     /**
-     * Get the group' list of recipients
-     * @return an ArrayList of String containing the mail addresses of the recipients
+     * Returns the group's recipients list.
+     *
+     * @return An ArrayList containing the group's recipients.
      */
     public ArrayList<String> getRecipients() {
         return recipients;
@@ -25,24 +30,29 @@ public class Group {
     }
 
     /**
-     * Add a recipient to the group. Usually it is a mail address
-     * @param recipient
+     * Adds a recipient to the group.
+     *
+     * @param recipient The recipient's email address.
      */
     public void addRecipient(String recipient) {
-        recipients.add(recipient);
+        if(!recipients.contains(recipient)) {
+            recipients.add(recipient);
+        }
     }
 
     /**
-     * Get the group' sender
-     * @return the sender of the group
+     * Returns the group's sender.
+     *
+     * @return The group's sender.
      */
     public String getSender() {
         return sender;
     }
 
     /**
-     * Set the group' sender
-     * @param sender
+     * Sets the group's sender.
+     *
+     * @param sender The group's sender.
      */
     public void setSender(String sender) {
         this.sender = sender;

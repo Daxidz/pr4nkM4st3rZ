@@ -8,6 +8,12 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Used to parse files.
+ *
+ * @author Lucas ELISEI (@faku99)
+ * @author David TRUAN  (@Daxidz)
+ */
 public class Parser {
 
     private static Logger LOG = Logger.getLogger(Parser.class.getName());
@@ -35,7 +41,7 @@ public class Parser {
 
         File file = new File(filePath);
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 
             String line;
             while ((line = reader.readLine()) != null) {
@@ -48,6 +54,11 @@ public class Parser {
         return victimsList;
     }
 
+    /**
+     * Fetch the messages list.
+     *
+     * @return The messages list.
+     */
     public static ArrayList<Message> getMessagesList() {
         ArrayList<Message> messagesList = new ArrayList<>();
 
@@ -62,7 +73,7 @@ public class Parser {
 
             for (File messageFile : folder.listFiles()) {
                 if (messageFile.isFile() && FilenameUtils.getExtension(messageFile.getName()).equals("txt")) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(messageFile)));
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(messageFile), "UTF-8"));
 
                     String line;
                     String subject = "";

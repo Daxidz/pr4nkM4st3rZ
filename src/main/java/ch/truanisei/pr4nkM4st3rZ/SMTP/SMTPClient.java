@@ -32,6 +32,9 @@ public class SMTPClient {
 
     private PrintWriter out = null;
 
+    /**
+     * Constructor.
+     */
     public SMTPClient() {
         Properties properties = new Properties();
 
@@ -49,10 +52,8 @@ public class SMTPClient {
      * Sends an email to the SMTP server.
      *
      * @param email The email to send.
-     *
-     * @throws IOException
      */
-    public void sendEmail(Email email) throws IOException {
+    public void sendEmail(Email email) {
         ArrayList<String> recipients = email.getRecipients();
 
         connect();
