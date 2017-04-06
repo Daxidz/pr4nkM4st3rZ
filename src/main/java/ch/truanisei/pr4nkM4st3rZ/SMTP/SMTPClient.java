@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 /**
  * @author Elisei Lucas
@@ -16,7 +17,7 @@ public class SMTPClient {
     private Socket serverSocket = null;
 
     private String serverName;
-    private int port;
+    private int port = 25;
 
     BufferedReader in = null;
     PrintWriter out = null;
@@ -24,58 +25,62 @@ public class SMTPClient {
     public SMTPClient() {
         // chopper le nom du serveur et le port ici
         port = 25000;
+
         serverName = "localhost";
     }
 
     /**
      * NEED TO IMPLEMENT THIS
+     *
      * @param mail
      * @throws IOException
      */
     public void sendMail(Mail mail) throws IOException {
+
+        ArrayList<String> recipients = mail.get_recipients();
+
         connect();
-        while(true) {
-            System.out.println(in.readLine());
-        }
-    }
+        // Read the first line
+        in.readLine();
 
-    /**
-     * CLASS FOR TEST
-     * @throws IOException
-     */
-    public void sendMail() throws IOException {
-        connect();
-        // lis la 1ere ligne
-        System.out.println(in.readLine());
+        sendCommand(SMTPProtocol.EHLO + "truanisei");
 
-
-        sendCommand(SMTPProtocol.EHLO);
-        System.out.println("de");
+        // read until we get to the line "250 ...."
         String input = in.readLine();
-        while(!input.contains(" ")) {
+        while (!input.contains(" ")) {
             System.out.println(input);
             input = in.readLine();
         }
-        System.out.println("bla");
-        sendCommand(SMTPProtocol.MAIL_FROM + "test");
+        sendCommand(SMTPProtocol.MAIL_FROM + mail.get_sender());
         in.readLine();
-        sendCommand(SMTPProtocol.RCPT_TO + "test_rcpt");
-        in.readLine();
+        for (String receipient : recipients) {
+            sendCommand(SMTPProtocol.RCPT_TO + receipient);
+            in.readLine();
+        }
+
         sendCommand(SMTPProtocol.DATA);
         in.readLine();
-        out.write(SMTPProtocol.FROM + "test" + SMTPProtocol.LINE_ENDING);
-        out.write(SMTPProtocol.TO + "test2" + SMTPProtocol.LINE_ENDING);
-        out.write(SMTPProtocol.SUBJECT + "subject" + SMTPProtocol.LINE_ENDING + SMTPProtocol.LINE_ENDING);
-        out.write("Body Test" + SMTPProtocol.END_DATA);
+        out.write(SMTPProtocol.FROM + mail.get_sender() + SMTPProtocol.LINE_ENDING);
+
+        out.write(SMTPProtocol.TO);
+        for (int i = 0; i < recipients.size(); ++i) {
+            out.write(recipients.get(i));
+            if (i != recipients.size() - 1) {
+                out.write(", ");
+            }
+            out.flush();
+        }
+        out.write(SMTPProtocol.LINE_ENDING);
+        out.write(SMTPProtocol.SUBJECT + mail.get_subject() + SMTPProtocol.LINE_ENDING + SMTPProtocol.LINE_ENDING);
+
+        out.write(mail.get_body() + SMTPProtocol.END_DATA);
         out.flush();
+
         in.readLine();
         sendCommand(SMTPProtocol.QUIT);
 
         in.close();
         out.close();
-
-
-
     }
 
     public void connect() {

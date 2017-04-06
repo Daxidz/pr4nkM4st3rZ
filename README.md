@@ -45,4 +45,16 @@ Example:
 
 ## Classes diagram
 
-![Classes diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/faku99/pr4nkM4st3rZ/master/figures/classes.plantuml)
+![Classes diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/faku99/pr4nkM4st3rZ/master/figures/classes.plantuml)  
+
+
+## Use of a mock SMTP server
+
+If you want to try **pr4nkM4st3rZ** without getting kicked out of your company or just to see if you set the properties right, you can use a **mock SMTP server**. Its goal is to simulate a SMTP server for tests purpose.  
+[Here](https://github.com/tweakers-dev/MockMock) is the one we used to test our application while developping it. It is a simple one with a network interface available by your browser.
+### Installation steps
+* Clone the repo.
+* Replace line 51 of the `pom.xml` by `<groupId>com.jolira</groupId>`.
+* It is a **Maven** project so you will need [Maven](https://maven.apache.org/download.cgi) to build it. Once you have **Maven**, run the command `mvn clean install` in the `MockMock` folder.
+* You can now execute the `.jar` by typing `java -jar MockMock-1.4.0.one-jar.jar`. It will launch the mock SMTP server using `localhost` as the server and using the port `25` for SMTP and `8282` for the web-interface. If you want to change these ports you can use the `-p` for the SMTP port and `-h` for the web-interface port.
+* Once it is lauched and loaded you can access it on `http://localhost:theportyousethere/`.
