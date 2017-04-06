@@ -6,7 +6,7 @@
 
     <groupId>ch.truanisei</groupId>
     <artifactId>pr4nkM4st3rZ</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,15 +15,6 @@
     </properties>
 
     <build>
-        <!--<resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-            </resource>
-        </resources>-->
-
         <plugins>
             <!-- Tell Maven to compile for Java 8 -->
             <plugin>
@@ -68,9 +59,6 @@
                             <mainClass>ch.truanisei.pr4nkM4st3rZ.Application</mainClass>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
-                        <!--<manifestEntries>
-                            <Class-Path>lib/</Class-Path>
-                        </manifestEntries>-->
                     </archive>
                 </configuration>
             </plugin>
