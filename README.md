@@ -71,6 +71,8 @@ Example:
     victim1@domain.net
     victim2@domain.net
 
+**Important note:** The file must be encoded with **UTF-8**.
+
 ## <a name="Messages"></a>Email messages
 
 Several body messages can be used for sending the emails. Each file present in the `MSGS_DIR` (see [Properties](#Properties) for more informations) represents a body message.
@@ -81,6 +83,8 @@ Example:
 
     Hey I'm the subject of the email!
     And I'm the body cuz I'm after the first line.
+
+**Important note:** The file must be encoded with **UTF-8**.
 
 # <a name="Technical"></a>Technical informations
 
