@@ -12,20 +12,30 @@ package data {
         + Group(exp : String, dests : List<String>)
     }
 
-    class Mail {
-        + Mail(group : Group, prank : Prank)
+    class Email {
+        + Email(group : Group, prank : Prank)
     }
 
     class Parser {
         + generateGroups(n : int) : List<Group>
     }
 
-    class Prank {
-        + Prank(subject : String, body : String)
+    class Message {
+        + Message(subject : String, body : String)
     }
 
-    Mail -- Group
-    Prank -- Mail
+    Email -- Group
+    Message -- Email
+}
+
+package prank {
+
+    class PrankGenerator {
+
+    }
+
+    PrankGenerator -- Parser
+
 }
 
 package SMTP {
@@ -39,10 +49,10 @@ package SMTP {
     }
 
     SMTPClient -- SMTPProtocol
-    Mail - SMTPClient
+    Email - SMTPClient
 }
 
 Application - SMTPClient
-Application - Parser
+Application - PrankGenerator
 
 @end
