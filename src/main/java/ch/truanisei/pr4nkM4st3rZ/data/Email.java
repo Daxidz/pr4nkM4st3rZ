@@ -1,58 +1,99 @@
 package ch.truanisei.pr4nkM4st3rZ.data;
 
-import ch.truanisei.pr4nkM4st3rZ.data.Group;
-import ch.truanisei.pr4nkM4st3rZ.data.Message;
-
 import java.util.ArrayList;
 
 /**
+ * Class representing an email.
+ * It has a sender (email address), a list of recipients (email addresses), a subject and a body.
  * @author Elisei Lucas
  * @author Truan David
  */
 public class Email {
+    private Group group;
+    private Message message;
 
-    private ArrayList<String> _recipients;
-    private String _sender;
-    private String _subject;
-    private String _body;
-
-    public ArrayList<String> get_recipients() {
-        return _recipients;
-    }
-
-    public void set_recipients(ArrayList<String> _recipients) {
-        this._recipients = _recipients;
-    }
-
-    public String get_sender() {
-        return _sender;
-    }
-
-    public void set_sender(String _sender) {
-        this._sender = _sender;
-    }
-
-    public String get_subject() {
-        return _subject;
-    }
-
-    public void set_subject(String _subject) {
-        this._subject = _subject;
-    }
-
-    public String get_body() {
-        return _body;
-    }
-
-    public void set_body(String _body) {
-        this._body = _body;
-    }
-
+    /**
+     * Create a Mail with a for a Group with a Message
+     * @param group
+     * @param message
+     */
     public Email(Group group, Message message) {
-        _recipients = group.getRecipients();
+        this.group = group;
+        this.message = message;
+    }
 
-        _sender = group.getSender();
-        _subject = message.getSubject();
-        _body = message.getBody();
+    /**
+     * Create a blank mail, you can populate it with the setters, getters
+     */
+    public Email() {
+
+    }
+
+    /**
+     *
+     * @return an ArrayList containing all the recipients' mail address from the Mail
+     */
+    public ArrayList<String> getRecipients() {
+        return group.getRecipients();
+    }
+
+    /**
+     * Set a list of recipients for the mail
+     * @param recipients
+     */
+    public void setRecipients(ArrayList<String> recipients) {
+        this.group.setRecipients(recipients);
+    }
+
+    /**
+     * Add a recipient to the recipient list
+     * @param recipient
+     */
+    public void addRecipient(String recipient) {
+        this.group.addRecipient(recipient);
+    }
+
+    /**
+     * Get the sender's mail address
+     * @return the sender's mail address
+     */
+    public String getSender() {
+        return this.group.getSender();
+    }
+
+    public void setSender(String sender) {
+        this.group.setSender(sender);
+    }
+
+    /**
+     * Get the subject of the mail
+     * @return a String containing the subject of the mail
+     */
+    public String getSubject() {
+        return this.message.getSubject();
+    }
+
+    /**
+     * Set the subject of the mail
+     * @param subject
+     */
+    public void setSubject(String subject) {
+        this.message.setSubject(subject);
+    }
+
+    /**
+     * Get a String containing the mail body
+     * @return the mail body
+     */
+    public String getBody() {
+        return this.message.getBody();
+    }
+
+    /**
+     * Set the mail body
+     * @param body
+     */
+    public void setBody(String body) {
+        this.message.setBody(body);
     }
 }
