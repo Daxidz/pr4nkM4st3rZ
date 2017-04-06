@@ -11,7 +11,7 @@ public class Message {
     private String body;
     private String subject;
 
-    public Message(String body, String subject) {
+    public Message(String subject, String body) {
         this.body = body;
         this.subject = subject;
     }

@@ -22,6 +22,11 @@ public class PrankGenerator {
 
     private int nbGroups;
 
+    /**
+     * Class used to generate a list of pranks emails. It takes the number of groups wanted as an arguments
+     * and generate the list using the config.properties
+     * @param nbGroups
+     */
     public PrankGenerator(int nbGroups) {
         this.nbGroups = nbGroups;
 
@@ -29,6 +34,10 @@ public class PrankGenerator {
         this.victims = Parser.getVictimsList();
     }
 
+    /**
+     * Generate the list of prank emails
+     * @return the list of prank Email
+     */
     public ArrayList<Email> generatePrankMails() {
 
         // Tests if there are enough victims and if we can generate the number of groups wanted

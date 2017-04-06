@@ -1,6 +1,7 @@
 package ch.truanisei.pr4nkM4st3rZ.SMTP;
 
 /**
+ * Class which describe the basic SMTP protocol used in the app
  * @author Elisei Lucas
  * @author Truan David
  */
