@@ -31,7 +31,7 @@ package data {
 package SMTP {
 
     class SMTPClient {
-        + sendMail(mail : Mail) : void
+        + sendMail(email : Mail) : void
     }
 
     class SMTPProtocol {

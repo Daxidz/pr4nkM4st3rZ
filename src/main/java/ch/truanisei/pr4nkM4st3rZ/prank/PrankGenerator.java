@@ -1,8 +1,9 @@
 package ch.truanisei.pr4nkM4st3rZ.prank;
 
+import ch.truanisei.pr4nkM4st3rZ.data.Email;
 import ch.truanisei.pr4nkM4st3rZ.data.Group;
-import ch.truanisei.pr4nkM4st3rZ.data.Mail;
 import ch.truanisei.pr4nkM4st3rZ.data.Message;
+import ch.truanisei.pr4nkM4st3rZ.data.Parser;
 
 import java.util.ArrayList;
 
@@ -14,40 +15,21 @@ import java.util.ArrayList;
  */
 public class PrankGenerator {
 
-    private final int NB_VICTIMS_MIN = 3;
-    private ArrayList<String> victims = new ArrayList<String>();
-    private ArrayList<Message> pranks = new ArrayList<Message>();
+    private final static int NB_VICTIMS_MIN = 3;
 
-    private int nbGroups; // load nb groups here
+    private ArrayList<String> victims;
+    private ArrayList<Message> pranks;
 
-    public PrankGenerator() {
-        // load victims and pranks here
-        // victims = Parser.
-        // pranks = Parser.
+    private int nbGroups;
 
-        victims.add("1@test.kek");
-        victims.add("2@test.kek");
-        victims.add("3@test.kek");
-        victims.add("4@test.kek");
-        victims.add("5@test.kek");
-        victims.add("6@test.kek");
-        victims.add("7@test.kek");
-        victims.add("8@test.kek");
-        victims.add("9@test.kek");
-        victims.add("10@test.kek");
-        victims.add("11@test.kek");
-        victims.add("12@test.kek");
-        victims.add("13@test.kek");
-        victims.add("14@test.kek");
+    public PrankGenerator(int nbGroups) {
+        this.nbGroups = nbGroups;
 
-        pranks.add(new Message("body1", "subject1"));
-        pranks.add(new Message("body2", "subject2"));
-        pranks.add(new Message("body3", "subject3"));
-
-        nbGroups = 5;
+        this.pranks = Parser.getMessagesList();
+        this.victims = Parser.getVictimsList();
     }
 
-    public ArrayList<Mail> generatePrankMails() {
+    public ArrayList<Email> generatePrankMails() {
 
         // Tests if there are enough victims and if we can generate the number of groups wanted
         if (victims.size() < NB_VICTIMS_MIN) {
@@ -83,15 +65,15 @@ public class PrankGenerator {
             victims.remove(random);
         }
 
-        ArrayList<Mail> prankMails = new ArrayList<Mail>();
+        ArrayList<Email> prankEmails = new ArrayList<Email>();
 
         // Create a mail with a random prank for each group
         for (Group group : groups) {
             random = (int) (Math.random() * pranks.size());
-            Mail mail = new Mail(group, pranks.get(random));
-            prankMails.add(mail);
+            Email email = new Email(group, pranks.get(random));
+            prankEmails.add(email);
         }
 
-        return prankMails;
+        return prankEmails;
     }
 }

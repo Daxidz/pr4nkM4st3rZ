@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Elisei Lucas
  * @author Truan David
  */
-public class Mail {
+public class Email {
 
     private ArrayList<String> _recipients;
     private String _sender;
@@ -48,7 +48,7 @@ public class Mail {
         this._body = _body;
     }
 
-    public Mail(Group group, Message message) {
+    public Email(Group group, Message message) {
         _recipients = group.getRecipients();
 
         _sender = group.getSender();

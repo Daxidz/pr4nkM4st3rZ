@@ -15,12 +15,9 @@ public class Application {
 
     public static void main(String... args) throws IOException {
         SMTPClient client = new SMTPClient();
-        Message msg = new Message("Test", "e");
-        Group group = new Group();
+        PrankGenerator prankGenerator = new PrankGenerator(Integer.valueOf(args[0]));
 
-        PrankGenerator prankGenerator = new PrankGenerator();
-
-        for (Mail mail : prankGenerator.generatePrankMails())
-            client.sendMail(mail);
+        for (Email email : prankGenerator.generatePrankMails())
+            client.sendEmail(email);
     }
 }

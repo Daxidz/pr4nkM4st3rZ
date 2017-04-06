@@ -1,43 +1,60 @@
 package ch.truanisei.pr4nkM4st3rZ.SMTP;
 
-import ch.truanisei.pr4nkM4st3rZ.data.Mail;
+import ch.truanisei.pr4nkM4st3rZ.data.Email;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * @author Elisei Lucas
- * @author Truan David
+ * Represents a client which connects to an SMTP server.
+ *
+ * The address and port of the server are defined in the `config.properties` file.
+ *
+ * @author Lucas ELISEI (@faku99)
+ * @author David TRUAN  (@Daxidz)
  */
 public class SMTPClient {
 
+    private static Logger LOG = Logger.getLogger(SMTPClient.class.getName());
+
     private Socket serverSocket = null;
 
-    private String serverName;
+    private String serverName = "";
+
     private int port = 25;
 
-    BufferedReader in = null;
-    PrintWriter out = null;
+    private BufferedReader in = null;
+
+    private PrintWriter out = null;
 
     public SMTPClient() {
-        // chopper le nom du serveur et le port ici
-        port = 25000;
+        Properties properties = new Properties();
 
-        serverName = "localhost";
+        try {
+            properties.load(new FileInputStream(new File("config.properties")));
+
+            serverName = properties.getProperty("SMTP_ADDRESS");
+            port = Integer.valueOf(properties.getProperty("SMTP_PORT"));
+        } catch (IOException e) {
+            LOG.log(Level.SEVERE, null, e);
+        }
     }
 
     /**
-     * NEED TO IMPLEMENT THIS
+     * Sends an email to the SMTP server.
      *
-     * @param mail
+     * @param email The email to send.
+     *
      * @throws IOException
      */
-    public void sendMail(Mail mail) throws IOException {
-
-        ArrayList<String> recipients = mail.get_recipients();
+    public void sendEmail(Email email) throws IOException {
+        ArrayList<String> recipients = email.get_recipients();
 
         connect();
         // Read the first line
@@ -51,7 +68,7 @@ public class SMTPClient {
             System.out.println(input);
             input = in.readLine();
         }
-        sendCommand(SMTPProtocol.MAIL_FROM + mail.get_sender());
+        sendCommand(SMTPProtocol.MAIL_FROM + email.get_sender());
         in.readLine();
         for (String receipient : recipients) {
             sendCommand(SMTPProtocol.RCPT_TO + receipient);
@@ -60,7 +77,7 @@ public class SMTPClient {
 
         sendCommand(SMTPProtocol.DATA);
         in.readLine();
-        out.write(SMTPProtocol.FROM + mail.get_sender() + SMTPProtocol.LINE_ENDING);
+        out.write(SMTPProtocol.FROM + email.get_sender() + SMTPProtocol.LINE_ENDING);
 
         out.write(SMTPProtocol.TO);
         for (int i = 0; i < recipients.size(); ++i) {
@@ -71,9 +88,9 @@ public class SMTPClient {
             out.flush();
         }
         out.write(SMTPProtocol.LINE_ENDING);
-        out.write(SMTPProtocol.SUBJECT + mail.get_subject() + SMTPProtocol.LINE_ENDING + SMTPProtocol.LINE_ENDING);
+        out.write(SMTPProtocol.SUBJECT + email.get_subject() + SMTPProtocol.LINE_ENDING + SMTPProtocol.LINE_ENDING);
 
-        out.write(mail.get_body() + SMTPProtocol.END_DATA);
+        out.write(email.get_body() + SMTPProtocol.END_DATA);
         out.flush();
 
         in.readLine();
@@ -83,21 +100,13 @@ public class SMTPClient {
         out.close();
     }
 
-    public void connect() {
-
+    private void connect() {
         try {
             serverSocket = new Socket(InetAddress.getByName(serverName), port);
-        } catch (UnknownHostException e) {
-            System.out.println("Server name incorect");
-        } catch (IOException e) {
-            System.out.println("Cannot connect to port " + port);
-        }
-
-        try {
             in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
             out = new PrintWriter(new OutputStreamWriter(serverSocket.getOutputStream()));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, null, e);
         }
     }
 
