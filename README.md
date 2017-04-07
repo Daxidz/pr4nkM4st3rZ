@@ -95,8 +95,8 @@ If you want to try **pr4nkM4st3rZ** without getting kicked out of your company o
 * It is a **Maven** project so you will need [Maven](https://maven.apache.org/download.cgi) to build it. Once you have **Maven**, run the command `mvn clean install` in the `MockMock` folder.
 * You can now execute the `.jar` by typing the following commands:
     ```
-cd target/
-java -jar MockMock-1.4.0.one-jar.jar
+    cd target/
+    java -jar MockMock-1.4.0.one-jar.jar
     ```
     It will launch the mock SMTP server using `localhost` as the server and using the port `25` for SMTP and `8282` for the web-interface. If you want to change these ports you can use the `-p` for the SMTP port and `-h` for the web-interface port.
 * Once it is launched and loaded you can access it on `http://localhost:<port>/`.
