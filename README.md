@@ -8,8 +8,6 @@ It's a simple Java application used for sending forged emails to groups of perso
 
 1. [General informations](#General)
     1. [Installation](#Installation)
-        1. [Maven installation](#Maven-Installation)
-        2. [Maven-free installation](#Other-Installation)
     2. [Running the program](#Running)
     3. [Properties file](#Properties)
     4. [Victims list](#VictimsList)
@@ -23,19 +21,13 @@ It's a simple Java application used for sending forged emails to groups of perso
 
 ## <a name="Installation"></a>Installation
 
-There are two ways for installing **pr4nkM4st3rZ**:
+You'll need [Maven](https://maven.apache.org/download.cgi) to install **pr4nkM4st3rZ**.
 
-### <a name="Maven-Installation"></a>Maven installation
-
-If you have **Maven** installed on your computer, simply clone this repository and execute the following command:
+After installing **Maven**, simply clone this repository and execute the following command:
 
     mvn clean install
 
 The compiled `.jar` file is now available at the location `target/pr4nkM4st3rZ-1.0.jar`. See the [Running](#Running) section for running the program.
-
-### <a name="Other-Installation"></a>Maven-free installation
-
-Simply download the latest available **pr4nkM4st3rZ** release by going on [this link](https://github.com/faku99/pr4nkM4st3rZ/releases/latest/) and clicking on the `pr4nkM4st3rZ_v1.0.zip`. It will download a `.zip` file. Extract and follow the [Running](#Running) instructions.
 
 ## <a name="Running"></a>Running the program
 
@@ -101,5 +93,10 @@ If you want to try **pr4nkM4st3rZ** without getting kicked out of your company o
 
 * Clone [this repo](https://github.com/dc55028/MockMock).
 * It is a **Maven** project so you will need [Maven](https://maven.apache.org/download.cgi) to build it. Once you have **Maven**, run the command `mvn clean install` in the `MockMock` folder.
-* You can now execute the `.jar` by typing `java -jar MockMock-1.4.0.one-jar.jar`. It will launch the mock SMTP server using `localhost` as the server and using the port `25` for SMTP and `8282` for the web-interface. If you want to change these ports you can use the `-p` for the SMTP port and `-h` for the web-interface port.
+* You can now execute the `.jar` by typing the following commands:
+    ```
+cd target/
+java -jar MockMock-1.4.0.one-jar.jar
+    ```
+    It will launch the mock SMTP server using `localhost` as the server and using the port `25` for SMTP and `8282` for the web-interface. If you want to change these ports you can use the `-p` for the SMTP port and `-h` for the web-interface port.
 * Once it is launched and loaded you can access it on `http://localhost:<port>/`.
